@@ -1,0 +1,56 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+wheels/
+*.spec
+*.egg-info
+
+# Virtual environments
+.venv
+venv/
+env/
+ENV/
+.env
+
+# ── OS ───────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+# ── uv ───────────────────────────────────────────
+.uv/
+
+# ── IDEs ─────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.spyderproject.cfg
+.spyproject/
+
+# ── Testing & coverage ───────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Jupyter ──────────────────────────────────────
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+profile_default/
+ipython_config.py
