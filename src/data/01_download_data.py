@@ -13,8 +13,8 @@ from tqdm import tqdm
 
 DATASET_URL = "https://archive.ics.uci.edu/static/public/222/bank+marketing.zip"
 OUTER_ZIP   = "bank+marketing.zip"
-INNER_ZIP   = "bank-additional.zip"
-TARGET_FILE = "bank-additional-full.csv"
+INNER_ZIP   = "bank.zip"
+TARGET_FILE = "bank-full.csv"
 
 # Resolve data/raw relative to this script's location (src/data/ -> ../../data/raw)
 SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
@@ -22,8 +22,8 @@ OUTPUT_DIR  = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "data", "raw
 OUTPUT_PATH = os.path.join(OUTPUT_DIR, TARGET_FILE)
 
 # Expected shape after loading
-EXPECTED_ROWS = 41_188
-EXPECTED_COLS = 21
+EXPECTED_ROWS = 45_211
+EXPECTED_COLS = 17
 
 
 # ---------------------------------------------------------------------------
@@ -117,10 +117,9 @@ def validate(path: str) -> pd.DataFrame:
 
     # Column check
     expected_columns = [
-        "age", "job", "marital", "education", "default", "housing", "loan",
-        "contact", "month", "day_of_week", "duration", "campaign", "pdays",
-        "previous", "poutcome", "emp.var.rate", "cons.price.idx",
-        "cons.conf.idx", "euribor3m", "nr.employed", "y",
+        "age", "job", "marital", "education", "default", "balance", "housing", "loan",
+        "contact", "day", "month", "duration", "campaign", "pdays",
+        "previous", "poutcome", "y",
     ]
     if list(df.columns) != expected_columns:
         raise ValueError(
