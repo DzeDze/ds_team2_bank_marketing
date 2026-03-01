@@ -3,9 +3,9 @@ import os
 
 RAW_DATA_FILE = "bank-full.csv"
 SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-RAW_DATA_DIR  = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "data", "raw"))
-OUTPUT_DIR  = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "data", "processed"))
-# OUTPUT_PATH = os.path.join(OUTPUT_DIR, TARGET_FILE)
+DATA_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, "..", "..", "data"))
+RAW_DATA_DIR  = os.path.normpath(os.path.join(DATA_DIR, "raw"))
+OUTPUT_DIR  = os.path.normpath(os.path.join(DATA_DIR, "processed"))
 
 def read_raw_data() -> pd.DataFrame:
     """
@@ -22,6 +22,40 @@ def read_raw_data() -> pd.DataFrame:
     print(f"Successfully read {RAW_DATA_FILE}")
     print(f"{len(df)} rows, {len(df.columns)} columns")
     return df
+
+def read_csv_data(relative_path: str, sep: str = ",") -> pd.DataFrame:
+    """
+    Read a CSV file from the `data/` directory.
+
+    Parameters
+    ----------
+    relative_path : str
+        Relative path inside the `data/` directory.
+
+        Examples
+        --------
+        read_csv_data("raw/bank-full.csv", sep=";")
+        -> reads data/raw/bank-full.csv
+
+        read_csv_data("processed/processed_bank_full.csv")
+        -> reads data/processed/processed_bank_full.csv
+
+    sep : str, default=","
+        Column separator used in the CSV file.
+
+    Returns
+    -------
+    pd.DataFrame
+        Loaded dataset.
+    """
+    path = os.path.join(DATA_DIR, relative_path)
+    print("Reading CSV data...")
+    df = pd.read_csv(path, sep=sep)
+    print(f"Successfully read {relative_path}")
+    print(f"{len(df)} rows, {len(df.columns)} columns")
+
+    return df
+
 
 def save_processed_data(relative_path: str, data:pd.DataFrame) -> None:
     """
