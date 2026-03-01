@@ -22,6 +22,9 @@ def add_balance_bucket_feature(df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame
         DataFrame with an added 'balance_bucket' column.
     """
+    if "balance" not in df.columns:
+        raise ValueError("Column 'balance' is required")
+    
     df = df.copy()
 
     # Bucket non-negative balances
@@ -62,6 +65,10 @@ def add_age_bucket_feature(df: pd.DataFrame) -> pd.DataFrame:
     pd.DataFrame
         DataFrame with an added 'age_bucket' column.
     """
+
+    if "age" not in df.columns:
+        raise ValueError("Column 'age' is required")
+    
     df = df.copy()
 
     df["age_bucket"] = pd.cut(
