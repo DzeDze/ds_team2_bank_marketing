@@ -1,7 +1,7 @@
 # 📊 Bank Marketing Campaign Analysis
 
 ## Data Science Institue - Cohort 8 - Team 2 - Final Project
-For our capstone project in the Data Science Certificate program at the University of Toronto's Data Sciences Institue, we set out to explore real-world questions using a dataset on bank marketing campaign.
+For our capstone project in the Data Science Certificate program at the University of Toronto's Data Sciences Institute, we set out to explore real-world questions using a dataset on bank marketing campaign.
 
 ## Members
 - Vinh-phuc Nguyen
