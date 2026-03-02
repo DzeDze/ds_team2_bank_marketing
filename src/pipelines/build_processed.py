@@ -1,0 +1,36 @@
+"""
+Build the processed modeling dataset.
+
+Pipeline:
+- load raw bank-full.csv via data_manager.read_raw_data()
+- add engineered bucket features
+- encode target y
+- save to data/processed/processed_bank_full.csv
+"""
+
+import pandas as pd
+from config import CFG
+from utils.data_manager import read_raw_data, save_processed_data
+from utils.transforms import add_bucket_features
+from utils.preprocessing import ensure_target_numeric
+
+def build_processed_dataset() -> pd.DataFrame:
+    """
+    Build and persist processed dataset used by all downstream pipelines.
+
+    Returns:
+        Processed DataFrame (saved to data/processed/processed_bank_full.csv)
+    """
+    df = read_raw_data()
+    df = add_bucket_features(df)
+    df = ensure_target_numeric(df, target_col=CFG.TARGET_COL)
+
+    save_processed_data(CFG.PROCESSED_BANK_REL, df)
+    return df
+
+def main() -> None:
+    build_processed_dataset()
+
+
+if __name__ == "__main__":
+    main()
