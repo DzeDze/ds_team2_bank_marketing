@@ -1,82 +1,62 @@
-# Bank Marketing
+# 📊 Bank Marketing Campaign Analysis
 
-# DS Team 2
+## Data Science Institue - Cohort 8 - Team 2 - Final Project
+For our capstone project in the Data Science Certificate program at the University of Toronto's Data Sciences Institue, we set out to explore real-world questions using a dataset on bank marketing campaign.
 
-Data
-[UCI Bank Marketing dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing)
-(41,188 records, 20 features).
+## Members
+- Vinh-phuc Nguyen
+- Cookiejars8
+- Kateryna Makieieva
+- Kerensa-wong
 
----
+## Purpose & Overview
+ - [Purpose and Overview](#purpose-and-overview)
+ - [Methodology](#methodology)
+ - [Project Scope](#project-scope)
+ - [Understanding the Data](#understanding-the-data)
+    - [Data Cleaning](#data-cleaning)
+    - [Data Analysis](#data-analysis)
+ - [Conclusion](#conclusion)
+ - [Team Videos](#team-videos)
+ - [Credits and Source](#credits)
 
-## Project Structure
+ <!--- [Additional Guide_Project Setup](#project-structure)-->
 
-![Project Structure](project_structure.png)
+# Purpose & Overview
+This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing), which contains 41,188 records and 20 features from direct marketing campaigns of a Portuguese bank.
 
----
+**Objective:** Identify factos that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
 
-## Setup
+## Goals & Objectives
 
-### Prerequisites
+- Understand demographic, financial, and campaign-specific factors influencing subscription
+- Build predictive models to estimate likelihood of subscription
+- Provide actionable insights for optimizing marketing strategies
+- Demonstrate effective use of data visualization and explainability tools
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it:
+# Methodology
+- Data Cleaning:
+- Preliminary analysis to identify correlation:
+- Classification analysis and validation:
+- Visualization:
+- Conclusion:
 
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+## Technical Stack:
+### Programming Language:
+- Python
+- Power BI
+### Library Used: 
+- Numpy: matrix operations
+- Pandas: data analysis
+- Matplotlib: creating graphs and plots
+- Plotly: creating interactie graphs and plots
+- Seaborn: enhancing matplotlib plots
+- SKLearn: classification analysis
+- Streamlit: creating interactive dashboard for visualization
 
-### Install dependencies
 
-```bash
-# Create virtual environment and install all dependencies from pyproject.toml
-uv sync
-```
+- **Modeling:** Logistic Regression, Random Forest, Gradient Boosting
 
-### Download the data
-
-Download the dataset manually from:
-[https://archive.ics.uci.edu/dataset/222/bank+marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)
-
-Place the files at:
-```
-data/raw/bank-additional-full.csv
-data/raw/bank-full.csv
-```
-
----
-
-## Running the Project
-
-### Run notebooks
-
-Run notebooks in order:
-
-1. `01_eda.ipynb`
-2. `02_preprocessing.ipynb`
-3. `03_features_engineering.ipynb`
-4. `04_modeling.ipynb`
-5. `05_evaluation_and_explainability.ipynb`
-
-### Train a model directly
-
-```bash
-uv run python src/models/train.py
-```
-
-### Launch the Streamlit dashboard
-
-```bash
-uv run streamlit run main.py
-```
-
----
-
-## Results
-
-| version | model              | auc_roc | f1_yes | threshold | notes                              |
-|---------|--------------------|---------|--------|-----------|------------------------------------|
-| —       | —                  | —       | —      | —         | Run the notebooks to populate this |
-
----
 
 ## Key Design Decisions
 
@@ -84,8 +64,35 @@ uv run streamlit run main.py
 - **`src/` owns all logic** — notebooks import from `src/`, keeping them thin and readable
 - **Evaluation is separated** — `04_modeling.ipynb` tunes on the val set; `05_evaluation_and_explainability.ipynb` reports final unbiased metrics on the test set.
 
+# Project Scope
+## Description
+## Stakeholders
+
+# Understanding the Data
+## Data Cleaning
+## Data Exploration
+
+# Data Analysis
+
+
+# Results
+## Key Findings
+
+
+# Conclusion
+
+# Team Videos
+ | Name | Links |
+ | --- | --- |
+ | Vinh-phuc Nguyen | [Video Link]() |
+ | Cookiejars8 | [Video Link]() |
+ | Kateryna Makieieva | [Video Link]()|
+ | kerensa-wong | [Video Link]() | 
+
+
+## Credits
+
+* Team: DS Team 2 — University of Toronto, Data Sciences Institute
+* Dataset: UC Irvine Machine Learning Repository
+* Contributors: All team members
 ---
-
-## Team
-
-DS Team 2 — University of Toronto, Data Sciences Institute
