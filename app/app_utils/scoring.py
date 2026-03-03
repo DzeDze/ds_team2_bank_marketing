@@ -28,24 +28,37 @@ def add_deciles(
 
     Decile 10 = highest probability group (top 10%), Decile 1 = lowest.
 
-    Args:
-        df: DataFrame
-        prob_col: probability column
-        decile_col: output decile column name
-
-    Returns:
-        DataFrame with decile column
+    Notes:
+    - For very small batches (n < 2), deciles are not meaningful; returns NA decile.
+    - Uses qcut when possible; falls back to rank-based assignment when ties prevent qcut.
+    - Uses pandas nullable integer dtype ("Int64") to safely represent missing deciles.
     """
     out = df.copy()
-    # qcut may fail if too many ties; use rank-based fallback
+    n = len(out)
+
+    # Deciles are undefined for a single row
+    if n < 2:
+        out[decile_col] = pd.Series([pd.NA] * n, dtype="Int64")
+        return out
+
     try:
+        # labels False -> 0..k-1 (low->high). Add 1 -> 1..k
         out[decile_col] = pd.qcut(out[prob_col], 10, labels=False, duplicates="drop") + 1
     except Exception:
+        # Rank-based fallback (1..10)
         ranks = out[prob_col].rank(method="average", pct=True)
-        out[decile_col] = (np.ceil(ranks * 10)).astype(int).clip(1, 10)
+        out[decile_col] = np.ceil(ranks * 10)
 
-    # Make 10 = best
-    out[decile_col] = out[decile_col].astype(int)
+    # Ensure numeric, allow NA
+    out[decile_col] = pd.to_numeric(out[decile_col], errors="coerce")
+
+    # Make 10 = best (invert within available bins)
+    if out[decile_col].notna().any():
+        max_bin = int(out[decile_col].max())
+        out[decile_col] = (max_bin + 1 - out[decile_col]).round(0)
+
+    # Use nullable int to avoid "Cannot convert NA to int"
+    out[decile_col] = out[decile_col].astype("Int64")
     return out
 
 

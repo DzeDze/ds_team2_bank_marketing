@@ -23,7 +23,7 @@ import streamlit as st
 from config import CFG
 from app_utils.artifacts import load_segmentation_df
 
-st.set_page_config(page_title="High-Impact Customer Opportunities", layout="wide")
+st.set_page_config(page_title="High-Impact Customer Profiles", layout="wide")
 
 
 # -------------------------
@@ -139,7 +139,7 @@ def _fmt_x(x: float) -> str:
 
 st.title("High-Impact Customer Opportunities")
 st.caption(
-    "We segment customers into **Target / Neutral / Avoid** opportunity tiers using two-way customer attributes. "
+    "We segment customers into **Target / Neutral / Avoid** profile tiers using two-way customer attributes. "
     "Use this to prioritize marketing investment and reduce waste."
 )
 
