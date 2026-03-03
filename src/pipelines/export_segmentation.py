@@ -1,8 +1,32 @@
-import pandas as pd
-from utils.data_manager import read_csv_data, save_processed_data
+"""
+src/pipelines/export_segmentation.py
 
-OUTPUT_FILE = "viz/segmentation_data.csv"
-MIN_N = 200
+Generates segmentation artifacts under data/processed/viz/.
+
+Outputs:
+- viz/segmentation_data.csv  (two-way segments with lift + class + baseline_conv)
+- viz/decision_table.csv     (top targets + top avoids)
+"""
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import List, Tuple
+
+import pandas as pd
+
+from config import CFG
+from utils.data_manager import read_csv_data, save_processed_data
+from utils.preprocessing import ensure_target_numeric
+
+@dataclass(frozen=True)
+class SegmentationExportConfig:
+    """
+    Config for segmentation exports.
+    """
+    min_n: int = CFG.MIN_SEGMENT_N
+    target_lift: float = CFG.TARGET_LIFT
+    avoid_lift: float = CFG.AVOID_LIFT
+    target_col: str = CFG.TARGET_COL
 
 def calc_baseline_conversion_rate(df: pd.DataFrame, target_col: str = "y") -> float:
     """
@@ -34,22 +58,11 @@ def calc_baseline_conversion_rate(df: pd.DataFrame, target_col: str = "y") -> fl
     baseline = y.mean()
     return round(float(baseline), 4)
 
-def save_data(df: pd.DataFrame) -> None:
-    """
-    Save the segmentation output table to the processed data directory.
-
-    Parameters
-    ----------
-    df : pd.DataFrame
-        Segmentation results table to save.
-    """
-    save_processed_data(OUTPUT_FILE, df)
-
 def evaluate_segments_full(
         data: pd.DataFrame, 
-        group_vars: list[str], 
-        baseline: float, 
-        min_size=MIN_N,
+        group_vars: List[str], 
+        baseline: float,
+        min_size=int,
         target_col: str = "y"
 ) -> pd.DataFrame:
     """Compute segment size, conversion, lift, and % customers on the full dataset.
@@ -77,17 +90,11 @@ def evaluate_segments_full(
     if missing:
         raise ValueError(f"Missing required column(s): {missing}")
 
-    df = data.copy()
-
-    # Ensure target is numeric for mean()
-    if df[target_col].dtype == "object":
-        df[target_col] = df[target_col].map({"yes": 1, "no": 0})
-
     seg = (
-        df.groupby(group_vars, observed=True)
+        data.groupby(group_vars, observed=True)
         .agg(
             n=(target_col, "size"),
-            conv=(target_col, "mean"),
+            conv=(target_col, "mean")
         )
         .reset_index()
     )
@@ -102,9 +109,10 @@ def evaluate_segments_full(
     
 def create_two_way_segmentation_table(
         df: pd.DataFrame, 
-        two_way_vars: list[tuple[str, str]], 
+        two_way_vars: List[Tuple[str, str]], 
         baseline: float, 
-        min_size=MIN_N
+        min_size: int,
+        target_col: str
 ) -> pd.DataFrame:
     """
     Create a combined two-way segmentation table for multiple variable pairs.
@@ -117,7 +125,7 @@ def create_two_way_segmentation_table(
         List of column pairs to segment by, e.g. [("age_bucket","loan"), ...].
     baseline : float
         Baseline conversion rate used for lift calculation.
-    min_size : int, default=MIN_N
+    min_size : int
         Minimum segment size threshold.
 
     Returns
@@ -142,21 +150,42 @@ def create_two_way_segmentation_table(
 
     return pd.concat(tables, ignore_index=True)
 
-def save_two_way_segmentation_data(results: pd.DataFrame, output_file: str = OUTPUT_FILE) -> None:
+def add_class_labels(seg_df: pd.DataFrame, target_lift: float, avoid_lift: float) -> pd.DataFrame:
     """
-    Save the two-way segmentation results to the processed data directory.
-    Parameters
-    ----------
-    results : pd.DataFrame
-        Segmentation results table produced by `create_two_way_segmentation_table`.
-    output_file : str, default=OUTPUT_FILE
-        Relative path under `data/processed/` to save to.
+    Add decision class labels for dashboard: Target / Neutral / Avoid.
     """
-    save_processed_data(output_file, results)
+    out = seg_df.copy()
+    out["class"] = "Neutral"
+    out.loc[out["lift"] >= target_lift, "class"] = "Target"
+    out.loc[out["lift"] <= avoid_lift, "class"] = "Avoid"
+    return out
 
-def main():
-    """Run two-way segmentation generation and save results for visualization."""
-    data = read_csv_data("processed/processed_bank_full.csv")
+def build_decision_table(seg_df: pd.DataFrame, top_n: int = 12) -> pd.DataFrame:
+    """
+    Build a compact decision table with top targets and top avoids.
+    """
+    targets = (
+        seg_df[seg_df["class"] == "Target"]
+        .sort_values(["lift", "pct_customers"], ascending=[False, False])
+        .head(top_n)
+        .copy()
+    )
+    avoids = (
+        seg_df[seg_df["class"] == "Avoid"]
+        .sort_values(["lift", "pct_customers"], ascending=[True, False])
+        .head(top_n)
+        .copy()
+    )
+    return pd.concat([targets, avoids], ignore_index=True)
+
+def main(cfg: SegmentationExportConfig = SegmentationExportConfig()):
+    """
+    Load engineered dataset, compute two-way segments, and export viz CSVs.
+    """
+    df = read_csv_data(CFG.PROCESSED_BANK_REL)
+    df = ensure_target_numeric(df, cfg.target_col)
+
+    baseline = calc_baseline_conversion_rate(df, cfg.target_col)
 
     two_way_tests = [
         ("age_bucket", "loan"),
@@ -176,9 +205,24 @@ def main():
         ("balance_bucket", "job"),
         ("balance_bucket", "marital"),
     ]
-    baseline = calc_baseline_conversion_rate(data)
-    results = create_two_way_segmentation_table(data, two_way_tests, baseline)
-    save_two_way_segmentation_data(results)
+
+    seg = create_two_way_segmentation_table(
+        df,
+        two_way_tests,
+        baseline,
+        min_size=cfg.min_n,
+        target_col=cfg.target_col,
+    )
+
+    seg = add_class_labels(seg, target_lift=cfg.target_lift, avoid_lift=cfg.avoid_lift)
+
+    # Make Streamlit read-only: include baseline in exported table
+    seg["baseline_conv"] = baseline
+
+    decision_tbl = build_decision_table(seg, top_n=10)
+
+    save_processed_data(CFG.SEGMENTATION_VIZ_REL, seg)
+    save_processed_data(CFG.DECISION_TABLE_VIZ_REL, decision_tbl)
 
 if __name__ == "__main__":
     main()

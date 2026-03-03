@@ -1,3 +1,8 @@
+"""
+src/pipelines/download_data.py
+
+Bank Marketing Dataset — Download & Validation 
+"""
 import urllib.request
 import zipfile
 import shutil

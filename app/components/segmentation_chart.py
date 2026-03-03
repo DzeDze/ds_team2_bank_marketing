@@ -15,7 +15,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, Optional
 
 import pandas as pd
 import plotly.express as px
@@ -28,8 +28,8 @@ import streamlit as st
 DEFAULT_SEGMENTATION_DATA_FILE = "segmentation_data.csv"
 DEFAULT_PROCESSED_DATA_FILE = "processed_bank_full.csv"
 
-DEFAULT_TARGET_LIFT = 1.50 # targer lift threshold
-DEFAULT_AVOID_LIFT = 0.70 # avoid lift threshold
+DEFAULT_TARGET_LIFT = 1.5 # targer lift threshold
+DEFAULT_AVOID_LIFT = 0.7 # avoid lift threshold
 DEFAULT_TARGET_COL = "y"
 
 def _project_root() -> Path:
@@ -98,6 +98,17 @@ def calc_baseline_conversion_rate(df: pd.DataFrame, target_col: str = DEFAULT_TA
 
     baseline = float(y.mean())
     return round(baseline, 4)
+
+def infer_baseline_from_segmentation(seg_df: pd.DataFrame) -> Optional[float]:
+    """
+    If segmentation export included baseline_conv, use it.
+    """
+    if "baseline_conv" not in seg_df.columns:
+        return None
+    try:
+        return float(seg_df["baseline_conv"].iloc[0])
+    except Exception:
+        return None
 
 def filter_target_segments(df: pd.DataFrame, lift_threshold: float) -> pd.DataFrame:
     """
@@ -272,16 +283,21 @@ def load_artifacts(
       avoids: filtered avoid segments
     """
     seg_path = segmentation_csv_path(config.segmentation_filename)
-    proc_path = processed_csv_path(config.processed_filename)
-
     if not seg_path.exists():
         raise FileNotFoundError(f"Missing segmentation results CSV: {seg_path}")
-    if not proc_path.exists():
-        raise FileNotFoundError(f"Missing processed dataset CSV: {proc_path}")
-
+    
     seg_df = load_segmentation_results(str(seg_path))
-    proc_df = load_processed_data(str(proc_path))
-    baseline = calc_baseline_conversion_rate(proc_df, target_col=config.target_col)
+    baseline = infer_baseline_from_segmentation(seg_df)
+    
+    if baseline is None:
+        proc_path = processed_csv_path(config.processed_filename)
+        if not proc_path.exists():
+            raise FileNotFoundError(
+                f"Missing processed dataset CSV for baseline fallback: {proc_path}. "
+                "Either export baseline_conv in segmentation_data.csv or add processed file."
+            )
+        proc_df = load_processed_data(str(proc_path))
+        baseline = calc_baseline_conversion_rate(proc_df, target_col=config.target_col)
 
     targets = filter_target_segments(seg_df, config.target_lift)
     avoids = filter_avoid_segments(seg_df, config.avoid_lift)

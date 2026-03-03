@@ -1,9 +1,5 @@
 import pandas as pd
 
-from utils.data_manager import read_raw_data, save_processed_data
-
-OUTPUT_FILE = "processed_bank_full.csv"
-
 def add_balance_bucket_feature(df: pd.DataFrame) -> pd.DataFrame:
     """
     Add a balance bucket feature.
@@ -86,37 +82,22 @@ def add_age_bucket_feature(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
-def save_data(df: pd.DataFrame) -> None:
+def add_bucket_features(df: pd.DataFrame) -> pd.DataFrame:
     """
-    Save the processed dataset to the processed data directory.
+    Convenience wrapper to add all bucket features in a stable order.
+
+    This is the function pipelines should call.
 
     Parameters
     ----------
     df : pd.DataFrame
-        Processed dataset to be saved.
+        Input dataset.
+
+    Returns
+    -------
+    pd.DataFrame
+        Copy of df with 'balance_bucket' and 'age_bucket' columns.
     """
-    save_processed_data(OUTPUT_FILE, df)
-
-def main() -> None:
-    """
-    Run the feature engineering pipeline.
-
-    Steps
-    -----
-    1. Load raw data
-    2. Create balance buckets
-    3. Create age buckets
-    4. Save processed dataset
-    """
-
-    data = read_raw_data()
-
-    data = add_balance_bucket_feature(data)
-    data = add_age_bucket_feature(data)
-
-    print("Data columns:", data.columns.values)
-
-    save_data(data)
-
-if __name__ == "__main__":
-    main()
+    out = add_balance_bucket_feature(df)
+    out = add_age_bucket_feature(out)
+    return out
