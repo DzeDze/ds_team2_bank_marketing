@@ -1,5 +1,5 @@
 """
-app/pages/02_High_Impact_Customer_Targeting.py
+app/pages/02_High_Impact_Customer_Profiles.py
 
 This page shows:
 - KPIs and tables come from the full segmentation results (Target / Neutral / Avoid)
@@ -14,7 +14,7 @@ Expected columns:
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Dict, Tuple
+from typing import Dict
 
 import numpy as np
 import pandas as pd
