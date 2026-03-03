@@ -25,7 +25,7 @@ For our final project in the Data Science Certificate program at the University 
 # Purpose & Overview
 This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing), which contains 41,188 records and 20 features from direct marketing campaigns of a Portuguese bank.
 
-**Objective:** Identify factos that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
+**Objective:** Identify factors that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
 
 ## Goals & Objectives
 
