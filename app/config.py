@@ -14,12 +14,12 @@ class AppConfig:
     # Data directories
     DATA_DIR: Path = ROOT / "data"
     VIZ_DATA_DIR: Path = DATA_DIR / "processed" / "viz"
-    MODELS_DIR: Path = ROOT / "models"
+    MODELS_DIR: Path = ROOT / "artifacts" / "models"
 
     # Artifacts
     SEGMENTATION_DATA_CSV: Path = VIZ_DATA_DIR / "segmentation_data.csv"
-    LR_PIPELINE_JOBLIB: Path = MODELS_DIR / "lr_pipeline.joblib"
-    DT_MODEL_JOBLIB: Path = MODELS_DIR / "decision_tree.joblib"
+    LR_PIPELINE_JOBLIB: Path = MODELS_DIR / "logistic_regression_pipeline.joblib"
+    DT_MODEL_JOBLIB: Path = MODELS_DIR / "decision_tree_pipeline.joblib"
 
     # Thresholds
     TARGET_LIFT: float = 1.5 # targer lift threshold

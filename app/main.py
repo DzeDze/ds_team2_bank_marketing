@@ -7,14 +7,14 @@ Streamlit entrypoint (Home page).
 import streamlit as st
 
 st.set_page_config(
-    page_title="Segmentation + Explainable Targeting + Customer Ranking",
+    page_title="Segmentation + High-Impact Customer Targeting + Customer Ranking",
     page_icon="📈",
     layout="wide",
 )
 
 st.title("📈 Marketing Targeting Dashboard")
 st.caption(
-    "Segmentation strategy -> explainable rules -> customer ranking & activation lists."
+    "Segmentation strategy -> top actionable profiles  -> customer ranking & activation lists."
 )
 
 st.markdown(
@@ -22,8 +22,8 @@ st.markdown(
 Use the pages in the left sidebar:
 
 - **Segment Strategy**: target/avoid segments + decision map + decision table  
-- **Explainable Targeting**: decision tree & top actionable rules  
-- **Customer Targeting**: upload a CSV → score & download ranked target list
+- **High-Impact Customer Targeting**: top actionable profiles  
+- **Customer Targeting**: upload a CSV -> score & download ranked target list
 """
 )
 
