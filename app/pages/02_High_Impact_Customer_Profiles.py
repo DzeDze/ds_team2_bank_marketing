@@ -27,7 +27,7 @@ st.set_page_config(page_title="High-Impact Customer Profiles", layout="wide")
 
 
 # -------------------------
-# Validation + utilities
+# Validation
 # -------------------------
 
 REQUIRED_COLS = {
@@ -130,14 +130,14 @@ def _fmt_pct_from_percent(x: float) -> str:
 def _fmt_x(x: float) -> str:
     if x is None or (isinstance(x, float) and np.isnan(x)):
         return "—"
-    return f"{x:.2f}×"
+    return f"{x:.2f}x"
 
 
 # -------------------------
 # Load data
 # -------------------------
 
-st.title("High-Impact Customer Opportunities")
+st.title("High-Impact Customer Profiles")
 st.caption(
     "We segment customers into **Target / Neutral / Avoid** profile tiers using two-way customer attributes. "
     "Use this to prioritize marketing investment and reduce waste."
@@ -193,7 +193,7 @@ st.divider()
 # Portfolio overview
 # -------------------------
 
-st.subheader("Opportunity Portfolio Overview")
+st.subheader("Portfolio Overview")
 st.caption("A snapshot of where performance concentrates across Target / Neutral / Avoid tiers.")
 
 overview_rows = []
@@ -293,7 +293,7 @@ st.markdown(
 )
 
 # -------------------------
-# Optional advanced section
+# Optional section
 # -------------------------
 
 with st.expander("Advanced (optional): data + assumptions"):

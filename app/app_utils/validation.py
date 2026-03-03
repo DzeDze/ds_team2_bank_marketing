@@ -16,17 +16,6 @@ class ValidationResult:
     missing: List[str]
     extra: List[str]
 
-
-def infer_required_columns_from_pipeline(pipeline) -> Sequence[str]:
-    """
-    Infer required input columns.
-    """
-    cols = getattr(pipeline, "feature_names_in_", None)
-    if cols is None:
-        return []
-    return list(cols)
-
-
 def validate_columns(df: pd.DataFrame, required_cols: Iterable[str]) -> ValidationResult:
     """
     Validate DataFrame includes required columns.

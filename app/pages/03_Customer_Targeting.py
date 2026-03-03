@@ -2,13 +2,10 @@
 Customer Targeting dashboard page.
 
 - CSV upload
-- Column validation against pipeline.feature_names_in_
 - Batch scoring with predict_proba
 - Deciles + charts + ranked table
 - Download scored CSV
-
-Secondary:
-- Single-customer sandbox (optional)
+- Single-customer sandbox
 """
 
 from __future__ import annotations
@@ -20,12 +17,11 @@ from config import CFG
 from app_utils.artifacts import load_lr_pipeline
 from app_utils.validation import validate_columns
 from app_utils.scoring import score_customers, expected_conversions
-from viz.charts import fig_probability_histogram, fig_decile_bar
+# from viz.charts import fig_probability_histogram, fig_decile_bar
 
 st.set_page_config(page_title="Customer Targeting", layout="wide")
 
-st.title("🧮 Customer Targeting Tool")
-st.caption("Upload a customer list → score → rank → export target list.")
+st.title("🎯 Customer Targeting Tool")
 
 
 # -----------------------------
