@@ -1,13 +1,14 @@
 # 📊 Bank Marketing Campaign Analysis
 
-## Data Science Institue - Cohort 8 - Team 2 - Final Project
-For our capstone project in the Data Science Certificate program at the University of Toronto's Data Sciences Institue, we set out to explore real-world questions using a dataset on bank marketing campaign.
+## Data Science Institute - Cohort 8 - Team 2 - Final Project
+For our capstone project in the Data Science Certificate program at the University of Toronto's Data Sciences Institute, we set out to explore real-world questions using a dataset on bank marketing campaign.
 
 ## Members
 - Vinh-phuc Nguyen
 - Cookiejars8
 - Kateryna Makieieva
 - Kerensa-wong
+- Lanlan Li (didn't participate team project in the first week due to time conflicts, but will catch up and contribute my parts before the end of the project)
 
 ## Purpose & Overview
  - [Purpose and Overview](#purpose-and-overview)
@@ -25,7 +26,7 @@ For our capstone project in the Data Science Certificate program at the Universi
 # Purpose & Overview
 This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing), which contains 41,188 records and 20 features from direct marketing campaigns of a Portuguese bank.
 
-**Objective:** Identify factos that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
+**Objective:** Identify factors that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
 
 ## Goals & Objectives
 
@@ -49,7 +50,7 @@ This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.e
 - Numpy: matrix operations
 - Pandas: data analysis
 - Matplotlib: creating graphs and plots
-- Plotly: creating interactie graphs and plots
+- Plotly: creating interactive graphs and plots
 - Seaborn: enhancing matplotlib plots
 - SKLearn: classification analysis
 - Streamlit: creating interactive dashboard for visualization
@@ -88,6 +89,7 @@ This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.e
  | Cookiejars8 | [Video Link]() |
  | Kateryna Makieieva | [Video Link]()|
  | kerensa-wong | [Video Link]() | 
+ | Lanlan Li | [Video Link]() |
 
 
 ## Credits
