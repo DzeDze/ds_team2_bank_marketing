@@ -8,6 +8,7 @@ For our final project in the Data Science Certificate program at the University 
 - Cookiejars8
 - Kateryna Makieieva
 - Kerensa-wong
+- Lanlan Li
 
 ## Purpose & Overview
  - [Purpose and Overview](#purpose-and-overview)
@@ -88,6 +89,7 @@ This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.e
  | Cookiejars8 | [Video Link]() |
  | Kateryna Makieieva | [Video Link]()|
  | kerensa-wong | [Video Link]() | 
+ | Lanlan Li | [Video Link]() |
 
 
 ## Credits
