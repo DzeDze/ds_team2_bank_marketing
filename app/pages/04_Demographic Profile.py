@@ -639,7 +639,6 @@ def show_treemap(df): #subject to move to main page if necessary
 
     # ----------------------------------------
     # 5. Convert ALL treemap columns to string
-    #    (this is the key fix)
     # ----------------------------------------
     for col in ["age_group", "job", "education", "marital", "likelihood_bin"]:
         segment[col] = segment[col].astype(str)
