@@ -182,7 +182,7 @@ def main(cfg: SegmentationExportConfig = SegmentationExportConfig()):
     """
     Load engineered dataset, compute two-way segments, and export viz CSVs.
     """
-    df = read_csv_data(CFG.PROCESSED_BANK_REL)
+    df = read_csv_data(CFG.PROCESSED_DATA_REL + "/" + CFG.PROCESSED_BANK_REL)
     df = ensure_target_numeric(df, cfg.target_col)
 
     baseline = calc_baseline_conversion_rate(df, cfg.target_col)

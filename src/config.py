@@ -16,8 +16,9 @@ from pathlib import Path
 class Config:
     PROJECT_ROOT: Path = Path(__file__).resolve().parents[1]
 
+    PROCESSED_DATA_REL: str = "processed"
     # Processed dataset (created by src/features/engineering.py)
-    PROCESSED_BANK_REL: str = "processed/processed_bank_full.csv"
+    PROCESSED_BANK_REL: str = "bank-full-cleaned-processed-engineered.csv"
 
     # Viz exports (created by pipelines/export_segmentation.py)
     SEGMENTATION_VIZ_REL: str = "viz/segmentation_data.csv"

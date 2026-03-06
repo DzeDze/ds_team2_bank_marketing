@@ -19,11 +19,11 @@ def build_processed_dataset() -> pd.DataFrame:
     Build and persist processed dataset used by all downstream pipelines.
 
     Returns:
-        Processed DataFrame (saved to data/processed/processed_bank_full.csv)
+        Processed DataFrame (saved to data/processed/bank-full-cleaned-processed-engineered.csv)
     """
     df = read_raw_data()
     df = add_bucket_features(df)
-    df = ensure_target_numeric(df, target_col=CFG.TARGET_COL)
+    df = ensure_target_numeric(df, target_col=CFG.TARGET_COL) # binary encode target
 
     save_processed_data(CFG.PROCESSED_BANK_REL, df)
     return df

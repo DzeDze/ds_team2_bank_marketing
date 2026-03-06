@@ -13,7 +13,7 @@ import pandas as pd
 # from src.utils.data_manager import read_csv_data, save_processed_data
 
 from pipelines.download_data import main as download_data_main
-from pipelines.build_processed import build_processed_dataset
+from pipelines.process_data import build_processed_dataset
 from pipelines.export_segmentation import main as export_segmentation_main
 from pipelines.train_models import main as train_models_main
 
@@ -36,7 +36,7 @@ def main() -> None:
     download_data_main()
 
     print("2) Building processed dataset...")
-    df = build_processed_dataset()
+    _ = build_processed_dataset()
 
     print("3) Exporting segmentation artifacts...")
     export_segmentation_main()
