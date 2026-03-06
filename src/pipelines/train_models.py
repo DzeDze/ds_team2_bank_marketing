@@ -107,7 +107,7 @@ def main() -> None:
     """
     Train both pipelines and save joblibs.
     """
-    df = read_csv_data(CFG.PROCESSED_BANK_REL)
+    df = read_csv_data((CFG.PROCESSED_DATA_REL + "/" + CFG.PROCESSED_BANK_REL))
     df = ensure_target_numeric(df, CFG.TARGET_COL)
 
     dt_pipe = train_decision_tree_pipeline(df)
