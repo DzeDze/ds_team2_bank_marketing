@@ -1,7 +1,14 @@
 # 📊 Bank Marketing Campaign Analysis
 
-## Data Science Institute - Cohort 8 - Team 2 - Final Project
-For our final project in the Data Science Certificate program at the University of Toronto's Data Sciences Institute, we set out to explore real-world questions using a dataset on bank marketing campaign.
+## Data Science Institute - Cohort 8 - DS Team 2 - Final Project
+This project analyzes the [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) dataset to identify the factors that influence whether a customer subscribes to a term deposit and to help optimize future marketing campaigns through data-driven targeting strategies.
+
+The analysis combines **exploratory data analysis, customer segmentation, and predictive modeling** to help marketing teams prioritize high-probability customers, reduce unnecessary outreach, and improve campaign efficiency.
+
+Dataset source:
+
+UCI Machine Learning Repository - Bank Marketing Dataset
+[https://archive.ics.uci.edu/dataset/222/bank+marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)
 
 ## Members
 - Vinh-phuc Nguyen
@@ -10,7 +17,7 @@ For our final project in the Data Science Certificate program at the University 
 - Kerensa-wong
 - Lanlan Li
 
-## Purpose & Overview
+## Project Sections
  - [Purpose and Overview](#purpose-and-overview)
  - [Methodology](#methodology)
  - [Project Scope](#project-scope)
@@ -23,62 +30,536 @@ For our final project in the Data Science Certificate program at the University 
 
  <!--- [Additional Guide_Project Setup](#project-structure)-->
 
-# Purpose & Overview
-This project analyzes the [UCI Bank Marketing dataset](https://archive.ics.uci.edu/dataset/222/bank+marketing), which contains 41,188 records and 20 features from direct marketing campaigns of a Portuguese bank.
+## Purpose & Overview
+Banks rely heavily on **outbound marketing campaigns**, particularly phone calls, to promote financial products such as term deposits. However, these campaigns typically produce **low conversion rates despite significant operational effort.**
 
-**Objective:** Identify factors that influence subscription to term deposits and provide data-driven recommendations to improve campaign effectiveness.
+The dataset used in this project reflects this challenge:
+
+- Most contacted customers decline the offer
+
+- Campaigns often involve multiple repeated calls
+
+- Campaign effectiveness varies significantly across customer segments
+
+These issues lead to:
+
+- High operational costs
+
+- Customer fatigue due to repeated outreach
+
+- Inefficient allocation of marketing resources
+
+This project aims to address these problems by identifying **which customers are most likely to subscribe**, allowing marketing teams to move from **high-volume outreach to targeted, data-driven campaigns**.
 
 ## Goals & Objectives
 
-- Understand demographic, financial, and campaign-specific factors influencing subscription
-- Build predictive models to estimate likelihood of subscription
-- Provide actionable insights for optimizing marketing strategies
-- Demonstrate effective use of data visualization and explainability tools
+The main objective of this project is to improve the effectiveness of direct marketing campaigns by leveraging data analysis and machine learning.
 
-# Methodology
-- Data Cleaning:
-- Preliminary analysis to identify correlation:
-- Classification analysis and validation:
-- Visualization:
-- Conclusion:
+Key goals include:
 
-## Technical Stack:
-### Programming Language:
+- Identify customer characteristics associated with higher subscription probability
+
+- Improve marketing targeting precision
+
+- Reduce unnecessary repeated contacts
+
+- Increase campaign conversion rates
+
+- Provide actionable insights for future marketing strategies
+
+## Dataset
+
+We use the **Bank Marketing dataset**, which contains information from direct marketing campaigns conducted by a Portuguese banking institution between **May 2008 and November 2010**.
+
+The campaigns were conducted via **phone calls**, with the objective of convincing customers to subscribe to a **term deposit product**.
+
+### **Dataset Details**
+
+- **Records:** 45,211 observations
+
+- **Features:** 16 input variables
+
+- **Target variable:** `y` - whether the client subscribed to a term deposit (`yes` / `no`)
+
+The dataset includes several categories of variables:
+
+### **Customer Demographics**
+
+* age
+
+* job
+
+* marital status
+
+* education
+
+### **Financial Information**
+
+* housing loan status
+
+* personal loan status
+
+* credit default
+
+### **Campaign Information**
+
+* contact method
+
+* number of contacts during campaign
+ 
+* previous campaign outcomes
+ 
+* month and day of contact
+
+### **Target Variable**
+
+* `y`: subscription to a term deposit (`yes` / `no`)
+
+Smaller dataset variants are also available:
+
+| Dataset | Size | Description |
+|--------|------|-------------|
+| `bank-additional-full.csv` | 41,188 rows | Full dataset with 20 features|
+| `bank-additional.csv` | 4,119 rows | 10% sample |
+| `bank-full.csv` | 45,211 rows | Older version of the dataset with 17 features |
+| `bank.csv` | 4,521 rows | 10% sample of the older dataset version |
+
+For this project we focus primarily on:
+`bank-full.csv`
+
+## Key Business Questions
+
+The analysis is guided by several business questions related to **customer demographics, financial characteristics, campaign strategy, and customer segmentation**.
+
+### Customer Demographics
+- Which age groups are most likely to subscribe to a term deposit?
+- Are retired customers more likely to subscribe than working professionals?
+- Does education level influence subscription probability?
+- How does marital status affect subscription behavior?
+
+### Financial Profile
+- Does higher account balance increase likelihood of subscription?
+- Does having a housing loan affect subscription probability?
+- Does having a personal loan influence customer decisions?
+- Does having credit in default reduce subscription probability?
+- Is there an interaction between balance and loan status?
+
+### Campaign Strategy
+- Does contact method (cellular vs telephone) influence campaign success?
+- Is there an optimal number of contacts in a campaign?
+- Does subscription probability decrease after too many calls?
+- Which months are associated with higher or lower subscription success?
+
+### Customer Segmentation & Predictive Targeting
+- What combinations of customer characteristics yield the highest conversion rates?
+- Can we identify **low-probability segments** that should be avoided in future campaigns?
+- Do combinations of variables (e.g., loan status + balance) provide stronger insights than single-variable analysis?
+- Can customers be **ranked by likelihood of subscription** using predictive models?
+- Does combining segmentation analysis with predictive modeling improve targeting effectiveness?
+- How can **segmentation insights and predictive models work together** to guide marketing decisions?
+
+These questions help identify which customer groups should be prioritized or avoided in future campaigns.
+
+## Methodology
+
+The project follows a structured workflow to prepare the dataset, analyze customer segments, and develop a predictive ranking model for marketing targeting.
+
+### 1. Data Cleaning and Preparation
+The raw dataset was first cleaned to ensure consistency and reliability for analysis.
+
+Key steps include:
+
+- Handling categorical values and ensuring consistent labeling
+- Identifying and reviewing variables containing `"unknown"` values
+- Removing or adjusting problematic values where necessary
+- Converting the target variable `y` into a **binary outcome** representing whether a customer subscribed to a term deposit (`yes` = 1, `no` = 0)
+
+These steps ensure that the dataset is suitable for both segmentation analysis and predictive modeling.
+
+### 2. Feature Transformation (Discretization)
+To support clearer segmentation analysis and reduce the influence of extreme values, selected continuous variables were discretized into meaningful buckets.
+
+Specifically:
+
+- **Age** was grouped into age ranges
+- **Account balance** was divided into balance buckets (e.g., quartiles)
+
+This transformation allows the analysis to focus on **customer segments rather than individual values**, making patterns easier to interpret and more actionable for marketing decisions.
+
+### 3. Segmentation Analysis
+Segmentation analysis was used to explore how combinations of customer characteristics influence subscription behavior.
+
+The analysis focuses on:
+
+- Two-variable combinations (e.g., housing loan × balance group)
+- Identifying **high-conversion and low-conversion customer segments**
+
+This step helps reveal which groups of customers are most promising for targeted campaigns.
+
+### 4. Predictive Modeling
+A **Logistic Regression model** was implemented to estimate the probability that a customer will subscribe to a term deposit.
+
+Logistic regression was selected because it:
+
+- Produces **probability estimates**
+- Allows customers to be **ranked by likelihood of subscription**
+- Provides interpretable relationships between variables and the target outcome
+
+Rather than focusing solely on classification accuracy, the model is used primarily as a **ranking tool** to identify high-probability customers for marketing outreach.
+
+### 5. Visualization and Reporting
+Insights from both segmentation analysis and predictive modeling are communicated through interactive visualizations.
+
+A **Streamlit dashboard** was developed to:
+
+- Display segmentation results
+- Highlight high-performing and low-performing customer segments
+- Present decision tables and model-based rankings
+- Provide an accessible interface for exploring campaign targeting insights
+
+This interactive reporting approach allows stakeholders to easily interpret the results and apply them to marketing strategy.
+
+## Project Workflow
+
+The project follows a structured data science workflow from raw data preparation to decision-support reporting.
+
+```text
+Raw Dataset
+   ↓
+Data Cleaning
+   ↓
+Feature Transformation
+(Age & Balance Bucketing)
+   ↓
+Segmentation Analysis
+   ↓
+Logistic Regression Model
+(Customer Probability Ranking)
+   ↓
+Visualization & Insights
+   ↓
+Streamlit Dashboard
+```
+
+## Technical Stack
+
+The project was developed using Python and a set of libraries commonly used in data science workflows.
+
+### Programming Language
 - Python
-- Power BI
-### Library Used: 
-- Numpy: matrix operations
-- Pandas: data analysis
-- Matplotlib: creating graphs and plots
-- Plotly: creating interactie graphs and plots
-- Seaborn: enhancing matplotlib plots
-- SKLearn: classification analysis
-- Streamlit: creating interactive dashboard for visualization
+
+### Data Analysis and Processing
+- **pandas** - data manipulation and preprocessing  
+- **numpy** - numerical computations
+
+### Machine Learning
+- **scikit-learn** - logistic regression modeling and evaluation
+
+### Visualization
+- **matplotlib** - statistical visualization
+- **seaborn** - enhanced data visualization
+- **plotly** - interactive visualizations used in the Streamlit dashboard
+
+### Reporting and Dashboard
+- **Streamlit** - interactive dashboard for presenting segmentation insights and model outputs
+
+### Development Environment
+- Jupyter Notebooks - exploratory analysis and modeling
+- Python scripts (`.py`) - reusable pipelines for data downloading, data processing, feature preparation, and modeling 
+- GitHub - version control and collaboration
+
+## Exploratory Data Analysis (EDA)
+
+Exploratory Data Analysis (EDA) was conducted to understand how **customer demographics, financial characteristics, and campaign variables influence the likelihood of subscribing to a term deposit**. The goal of this analysis is not only to identify statistical relationships, but also to derive **actionable insights that support marketing targeting decisions.**
+
+The EDA proceeds in four stages:
+
+1. Customer demographics
+
+1. Financial profile 
+
+1. Campaign and previous contact behavior
+
+1. Customer segmentation and predictive ranking
+
+These analyses collectively inform how marketing campaigns can **prioritize high-probability customers and avoid low-yield segments.**
+
+## 1. Customer Demographics
+
+### Age and Subscription Behavior
+
+Age distribution was analyzed to determine whether different age groups exhibit different subscription patterns.
+
+Key observations include:
+
+* Customers aged **65 and above show the highest subscription rates**
+ 
+* Customers aged **26-45 generate a large number of subscribers**, but their conversion rates are relatively moderate
+ 
+* Younger segments such as **18-25 tend to show lower conversion rates**
+
+![](reports/Target_Matrix_by_Age_Group.png)
+
+These results suggest that **age alone does not fully explain subscription behavior**, and that more informative patterns emerge when age is combined with other variables.
+
+### Job Category and Subscription Behavior
+
+Occupation was also evaluated to understand how professional status relates to subscription behavior.
+
+Key findings include:
+
+* **Retired customers show some of the highest conversion rates**
+
+* **Students and unemployed individuals also show relatively strong conversion likelihood**
+ 
+* However, these segments represent **smaller portions of the dataset**
+
+Large occupational groups such as:
+
+* management
+
+* technicians
+ 
+* blue-collar workers
+ 
+* administrative staff
+
+generate the majority of subscribers due to **their larger population sizes**, despite having moderate conversion rates.
+
+This indicates that **small improvements in targeting within these large groups could produce meaningful gains in campaign effectiveness.**
+
+![](reports/Target_Matrix_by_Job_Category.png)
+
+### Age × Job Interaction
+
+To better understand demographic behavior, we analyzed the interaction between age group and occupation.
+
+Several high-performing combinations emerge:
+
+|Job	| Age Group |
+|------------|--------------|
+|Retired | 56–65, 65+ |
+|Student |	18–25 |
+|Unemployed |	56–65|
+
+These segments combine **relatively high conversion rates with meaningful segment sizes**, making them potential target groups.
+
+In contrast, large segments such as **blue-ollar workers aged 26-55** show moderate conversion rates but large populations, suggesting potential opportunities for **improved campaign messaging or targeting strategies**.
+
+![](reports/Age_Job_Heatmap.png)
+
+## 2. Financial Profile
+
+Financial characteristics provide some of the strongest indicators of subscription likelihood.
+
+### Account Balance
+
+Account balance shows a strong relationship with subscription behavior.
+
+Key observations:
+
+* Customers with **higher account balances are significantly more likely to subscribe**
+
+* Customers with **low balances show consistently lower conversion rates**
+
+This suggests that **financial capacity is an important driver of willingness to invest in term deposits**.
+
+![](reports/01_balance_vs_subscription_rate.png)
+
+### Housing Loan Status
+
+Housing loan status also influences subscription probability.
+
+Key observations:
+
+* Customers with **housing loans show lower subscription rates**
+
+* Customers **without housing loans are significantly more likely to subscribe**
+
+Housing loans likely represent a **financial commitment that reduces customers' willingness to allocate funds toward savings products.**
+
+![](reports/02_housing_vs_subscription.png)
+
+### Personal Loans
+
+Customers with **personal loans** also exhibit lower subscription probabilities compared with those without personal loans.
+
+This reinforces the idea that **existing debt obligations influence financial decision-making**.
+
+![](reports/03_personal_loan_vs_subscription.png)
+
+### Credit Default Status
+
+Customers with **credit in default** show extremely low subscription rates.
+
+This segment represents a clear **low-priority group for marketing outreach**.
+
+![](reports/04_default_vs_subscription.png)
+
+### Balance and Loan Interaction
+
+When balance is combined with loan status, patterns become clearer.
+
+The strongest conversion rates appear among customers who:
+
+* **have high balances**
+
+* **do not carry housing loans**
+
+This combination represents one of the **most promising financial profiles for targeting term deposit offers**.
+
+![](reports/05_balance_loan_interaction.png)
+
+## 3. Campaign and Previous Contact Behavior
+
+### Seasonal Patterns
+
+Campaign performance varies across months.
+
+Key observations:
+
+* **March shows the highest subscription rates**
+ 
+* **September, October, and December** also show relatively strong performance
+ 
+* Other months show moderate or lower success rates
+
+This suggests that **seasonality may influence customer responsiveness to marketing campaigns.**
+
+![](reports/subscription_rate_by_month.png)
 
 
-- **Modeling:** Logistic Regression, Random Forest, Gradient Boosting
 
+## Risks & Unknowns
 
-## Key Design Decisions
+This project includes several limitations that may affect the interpretation or real-world application of results.
 
-- **`data/raw/` is immutable** — never modified after download; all transformations write to `data/processed/`
-- **`src/` owns all logic** — notebooks import from `src/`, keeping them thin and readable
-- **Evaluation is separated** — `04_modeling.ipynb` tunes on the val set; `05_evaluation_and_explainability.ipynb` reports final unbiased metrics on the test set.
+### Risks
+**Class Imbalance & Model Bias**
 
-# Project Scope
-## Description
-## Stakeholders
+The dataset is heavily skewed toward customers who **did not subscribe**. This imbalance may cause models to favor predicting "no," reducing their ability to identify potential subscribers.
 
-# Understanding the Data
-## Data Cleaning
-## Data Exploration
+**Limited Generalizability**
 
-# Data Analysis
+The dataset originates from a **Portuguese bank**, and customer behavior, regulations, and financial habits may differ in other markets such as **Canada**.
 
+**Outdated Data**
 
-# Results
-## Key Findings
+The data was collected before **2013**, and changes in customer expectations, economic conditions, and marketing channels may affect the relevance of findings today.
 
+**Data Quality Issues**
+
+Some fields contain **"unknown" values or unclear categories**, which may weaken interpretability and model performance.
+
+**Outliers**
+
+Extreme values in variables such as **account balance or call duration** may distort the analysis.
+
+**Missing Important Variables**
+
+Important behavioral drivers are not included in the dataset, such as:
+
+* income
+* digital engagement 
+* geographic location
+* psychological motivations
+
+**Model Transferability**
+
+A model trained on historical campaigns may not perform equally well on **new campaigns with different scripts or strategies.**
+
+**Ethical & Consent Considerations**
+
+It is unclear whether customers consented to repeated outreach, and predictive targeting may risk reinforcing **existing biases in historical data.**
+
+**Correlation vs Causation**
+
+Observed relationships represent a**ssociations rather than causal effects**, meaning the dataset cannot fully explain *why* customers subscribe.
+
+### Unknowns
+
+Several key business factors are not captured in the dataset.
+
+**Campaign Costs & Profitability**
+
+We do not know:
+
+* the cost of each campaign
+* the profit generated by successful subscriptions
+
+This prevents accurate **ROI estimation**.
+
+**Customer Motivations**
+
+The dataset does not explain **why customers declined or accepted the offer**, limiting the ability to design improved messaging.
+
+**Behavioral Context**
+
+Important contextual factors such as:
+
+* digital activity
+* geographic location
+* lifestyle characteristics
+
+are not available.
+
+**Customer Lifetime Value**
+
+The dataset does not indicate:
+
+* how long customers kept their term deposits
+* long-term profitability of subscribers
+
+**Loan Usage Details**
+
+The dataset indicates whether a customer has a loan but does not show **how actively the loan is used**, which may influence financial behavior.
+
+**Campaign Strategy Changes**
+
+Information about **call scripts, targeting rules, and marketing strategies** is not included.
+
+**External Economic Conditions**
+
+Macroeconomic events that could influence financial decisions are not captured.
+
+**Contact Timing**
+
+The dataset does not include the **time of day customers were contacted**, which may affect response rates.
+
+## Project Setup
+
+### Prerequisites
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### Install dependencies
+
+```bash
+# Create virtual environment and install all dependencies from pyproject.toml
+uv sync
+```
+
+### Run the Data Processing & Model Training Pipelines
+
+This pipeline downloads the dataset, performs data cleaning, preprocessing, and feature engineering, trains the model, and stores all generated artifacts in their respective directories. The outputs are then ready to support reporting and visualization.
+
+```bash
+uv run src/pipelines/run_all.py
+```
+
+### Launch Streamlit dashboard
+
+Run the following command to start the dashboard locally
+
+```bash
+uv run streamlit run app/main.py
+```
+
+Alternatively, you can explore the deployed version [here](https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app)
 
 # Conclusion
 
