@@ -149,8 +149,9 @@ Several important business and behavioral factors are not captured in the datase
  - **Kateryna Makieieva:** Data Cleaning, Preprocessing, Handling missing values, Campaign   
    Strategy EDA, Classification Model, Wireframe
  - **kerensa-wong:** Readme file, Project Proposal, Demographics EDA, Explainability (SHAP)
+ - **Lanlan Li**: EDA, model predictions, manage and present presentation, Readme file review
  - Chris Odetola
-  - Lanlan Li
+  
 
 - **All Members:** Contribute to documentation, discussion of risks, and presentation of findings.
 
