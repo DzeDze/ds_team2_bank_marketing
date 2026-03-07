@@ -97,11 +97,6 @@ def render_dashboard() -> None:
 
     # Placeholder: future teammate modules
     st.markdown("---")
-    st.subheader("Other Analytics Modules")
-    st.caption(
-        "Teammates can add modules under `app/components/` "
-        "import and place their charts here when ready."
-    )
 
 # Streamlit multipage runs this file directly
 render_dashboard()

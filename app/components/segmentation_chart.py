@@ -208,6 +208,7 @@ def fig_segments_bar(
     fig = px.bar(top, x="lift", y="label", orientation="h", title=title)
     fig.add_vline(x=1.0, line_dash="dot")
     _add_baseline_annotation(fig, baseline)
+    fig.update_traces(marker_color="#2F6F73")
     fig.update_layout(xaxis_title="Lift vs baseline", yaxis_title="", margin=dict(t=90))
     return fig
 
