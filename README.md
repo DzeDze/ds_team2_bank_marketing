@@ -28,6 +28,7 @@
 <img src="https://img.shields.io/badge/Plotly-Charts-3F4F75?style=for-the-badge&logo=plotly"/>
 </a>
 </p>
+
 This project analyzes the [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) dataset to identify the factors that influence whether a customer subscribes to a term deposit and to help optimize future marketing campaigns through data-driven targeting strategies.
 
 The analysis combines **exploratory data analysis, customer segmentation, and predictive modeling** to help marketing teams prioritize high-probability customers, reduce unnecessary outreach, and improve campaign efficiency.
