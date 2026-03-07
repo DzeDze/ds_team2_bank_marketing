@@ -212,3 +212,17 @@ fig3.update_traces(
 )
 
 st.plotly_chart(fig3, use_container_width=True)
+
+# =========================================================
+# 🏁 SUMMARY
+# =========================================================
+
+st.header("Summary")
+st.markdown(
+	"""
+	- Financial stability strongly correlates with conversion. Customers with higher account balances are more likely to subscribe, especially when they do not hold loans.
+- Conversely, customers with housing or personal loans, and particularly those with credit in default, show much lower subscription rates. Debt status acts as a negative predictor of campaign success.
+- Housing loans are far more common than personal loans, indicating many customers have long-term financial commitments. Targeting financially stable, debt-free, high-balance customers could therefore improve overall campaign efficiency.
+
+	"""
+)
