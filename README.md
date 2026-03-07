@@ -8,11 +8,25 @@
 </a>
 
 <br>
-<img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python"/>
+<a href="https://www.python.org/">
+<img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python"/>
+</a>
+
+<a href="https://github.com/streamlit/streamlit">
 <img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit"/>
+</a>
+
+<a href="https://github.com/pandas-dev/pandas">
 <img src="https://img.shields.io/badge/Pandas-Data%20Processing-150458?style=for-the-badge&logo=pandas"/>
+</a>
+
+<a href="https://github.com/scikit-learn/scikit-learn">
 <img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn"/>
+</a>
+
+<a href="https://github.com/plotly/plotly.py">
 <img src="https://img.shields.io/badge/Plotly-Charts-3F4F75?style=for-the-badge&logo=plotly"/>
+</a>
 </p>
 This project analyzes the [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) dataset to identify the factors that influence whether a customer subscribes to a term deposit and to help optimize future marketing campaigns through data-driven targeting strategies.
 
