@@ -17,6 +17,7 @@ class Config:
     PROJECT_ROOT: Path = Path(__file__).resolve().parents[1]
 
     PROCESSED_DATA_REL: str = "processed"
+    CLEAN_BANK_REL: str = "bank-full-clean.csv"
     # Processed dataset (created by src/features/engineering.py)
     PROCESSED_BANK_REL: str = "bank-full-cleaned-processed-engineered.csv"
 
