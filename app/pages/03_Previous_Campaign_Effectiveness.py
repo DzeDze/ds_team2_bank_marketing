@@ -310,3 +310,28 @@ fig.add_hline(
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+# =========================================================
+# 🏁 SUMMARY
+# =========================================================
+
+st.header("Summary")
+st.markdown(
+	"""
+	Past interactions remain one of the strongest predictors of future success. Customers who previously subscribed are highly likely to convert again, making re-engagement particularly efficient.
+
+Those who previously failed to subscribe show reduced responsiveness, repeated targeting may result in diminishing returns. Customers contacted recently show higher likelihood to subscribe, emphasizing the value of recency-based segmentation.
+
+
+
+
+Contact strategy also matters:
+
+- Fewer contact attempts with meaningful conversations perform best, over-contacting hurts conversion rates.
+- Call duration positively correlates with success, calls lasting at least five minutes tend to yield better results.
+- The cellular channel performs slightly better than telephone, though both are effective.
+- Seasonal timing matters: March shows the strongest conversion rates, followed by September, October, and December.
+
+
+	"""
+)
