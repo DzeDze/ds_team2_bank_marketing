@@ -1,9 +1,10 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+from sidebar import render_sidebar
 
 st.set_page_config(page_title="Previous Campaign Effectiveness", layout="wide")
-
+render_sidebar()
 st.title("Customer Response Patterns from Previous Campaigns")
 
 # Load dataset

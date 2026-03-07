@@ -17,10 +17,11 @@ from config import CFG
 from app_utils.artifacts import load_lr_pipeline
 from app_utils.validation import validate_columns
 from app_utils.scoring import score_customers, expected_conversions
+from sidebar import render_sidebar
 # from viz.charts import fig_probability_histogram, fig_decile_bar
 
 st.set_page_config(page_title="Customer Targeting", layout="wide")
-
+render_sidebar()
 st.title("🎯 Customer Targeting Tool")
 
 

@@ -1,9 +1,10 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+from sidebar import render_sidebar
 
 st.set_page_config(page_title="Customer Financial Profile", layout="wide")
-
+render_sidebar()
 st.title("Customer Financial Profile and Conversion Drivers")
 
 # Load dataset
