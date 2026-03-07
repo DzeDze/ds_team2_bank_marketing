@@ -22,9 +22,10 @@ import streamlit as st
 
 from config import CFG
 from app_utils.artifacts import load_segmentation_df
+from sidebar import render_sidebar
 
 st.set_page_config(page_title="High-Impact Customer Profiles", layout="wide")
-
+render_sidebar()
 
 # -------------------------
 # Validation

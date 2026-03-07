@@ -5,6 +5,7 @@ from pathlib import Path
 import streamlit as st
 import plotly.graph_objects as go
 import plotly.express as px
+from sidebar import render_sidebar
 
 # -----------------------------
 # Load data
@@ -671,6 +672,7 @@ def show_treemap(hierarchy):
 # Streamlit UI
 # -----------------------------
 # The page title and caption
+render_sidebar()
 st.title("📊 Demographic Insights of Our Customer Base")
 st.caption(
 	"🔍 A focused analysis of age, education, marital status, and employment that shape customer behavior and reveal opportunities for targeted marketing."
