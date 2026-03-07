@@ -582,92 +582,88 @@ def show_age_group_barplots(df):
     return fig
 
 
-def show_treemap(df): #subject to move to main page if necessary
+def build_segment_hierarchy(df):
 
     import pandas as pd
     import numpy as np
-    import plotly.express as px
 
-    # ----------------------------------------
-    # 1. Age groups
-    # ----------------------------------------
+    df = df.copy()
+
+    # AGE GROUPS
     bins = [18, 25, 35, 45, 55, 65, 100]
     labels = ['18–25', '26–35', '36–45', '46–55', '56–65', '65+']
-    df = df.copy()
     df['age_group'] = pd.cut(df['age'], bins=bins, labels=labels, right=False)
 
-    # ----------------------------------------
-    # 2. Binary target
-    # ----------------------------------------
     df['y_binary'] = df['y'].apply(lambda x: 1 if x == 'yes' else 0)
 
-    # ----------------------------------------
-    # 3. Build segment table
-    # ----------------------------------------
-    segment = df.groupby(['age_group', 'job', 'education', 'marital']).agg(
-        likelihood=('y_binary', 'mean'),
+
+    # LEAF LEVEL ONLY
+    leaf = df.groupby(
+        ['age_group', 'job', 'education', 'marital'],
+        dropna=False
+    ).agg(
         volume=('y_binary', 'sum'),
         sample_size=('y_binary', 'count')
     ).reset_index()
 
-    # Remove unstable tiny segments
-    segment = segment[segment['sample_size'] >= 50]
+    # Filter unstable segments
+    leaf = leaf[leaf['sample_size'] >= 50].copy()
+    leaf['likelihood'] = leaf['volume'] / leaf['sample_size']
 
-    # Priority score
-    segment['priority_score'] = segment['likelihood'] * np.log(segment['sample_size'] + 1)
+    # Convert to string for Plotly
+    for col in ["age_group", "job", "education", "marital"]:
+        leaf[col] = leaf[col].astype(str)
 
-    # ----------------------------------------
-    # 4. Apply team color palette (safe binning)
-    # ----------------------------------------
-    palette = [
-        "#1F4E52",
-        "#2F6F73",
-        "#5E8F95",
-        "#8FB3C1",
-        "#C6D9E2"
-    ]
+    return leaf
 
-    unique_vals = segment["likelihood"].nunique()
-    bins_to_use = min(5, unique_vals)
 
-    segment["likelihood_bin"] = pd.qcut(
-        segment["likelihood"],
-        q=bins_to_use,
-        labels=palette[:bins_to_use],
-        duplicates="drop"
+
+
+def show_treemap(hierarchy):
+
+    import numpy as np
+    import plotly.express as px
+
+    df = hierarchy.copy()
+
+    # customdata = [volume, likelihood]
+    df["volume_int"] = df["volume"].astype(int)
+    customdata = np.stack(
+        [df["volume_int"], df["likelihood"]],
+        axis=-1
     )
 
-    # ----------------------------------------
-    # 5. Convert ALL treemap columns to string
-    # ----------------------------------------
-    for col in ["age_group", "job", "education", "marital", "likelihood_bin"]:
-        segment[col] = segment[col].astype(str)
+    # Custom color scale based on your team color #2F6F73
+    custom_scale = [
+        [0.0, "#D9E7E8"],   # very light tint
+        [0.5, "#5A8F92"],   # medium tint
+        [1.0, "#2F6F73"]    # primary color
+    ]
 
-    # Also force pure pandas (avoid Narwhals)
-    segment = pd.DataFrame(segment)
-
-    # ----------------------------------------
-    # 6. Treemap
-    # ----------------------------------------
     fig = px.treemap(
-        segment,
+        df,
         path=["age_group", "job", "education", "marital"],
         values="sample_size",
-        color="likelihood_bin",
-        color_discrete_map={c: c for c in palette},
+        color="likelihood",
+        color_continuous_scale=custom_scale,
         title="Treemap: Population Structure by Demographic Layers"
+    )
+
+    fig.data[0].customdata = customdata
+
+    fig.update_traces(
+        hovertemplate=(
+            "%{label}<br>"
+            "sample_size: %{value}<br>"
+            "volume: %{customdata[0]:d}<br>"
+            "likelihood: %{customdata[1]:.3f}"
+            "<extra></extra>"
+        )
     )
 
     fig.update_layout(margin=dict(t=50, l=25, r=25, b=25))
 
     return fig
-
-
-
-
-
-
-
 
 
 
@@ -770,8 +766,10 @@ st.markdown(
 	"""
 )
 
+
 #fig2 = show_all_treemap(df)
-st.plotly_chart(show_treemap(df), use_container_width=True) #subject to move to main page if necessary
+hierarchy = build_segment_hierarchy(df)
+st.plotly_chart(show_treemap(hierarchy), use_container_width=True) #subject to move to main page if necessary
 
 
 
