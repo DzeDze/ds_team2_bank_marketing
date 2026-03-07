@@ -11,22 +11,49 @@ UCI Machine Learning Repository - Bank Marketing Dataset
 [https://archive.ics.uci.edu/dataset/222/bank+marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing)
 
 ## Members
-- Vinh-phuc Nguyen
+- Vinh-phuc (Vince) Nguyen
 - Cookiejars8
 - Kateryna Makieieva
 - Kerensa-wong
 - Lanlan Li
 
-## Project Sections
- - [Purpose and Overview](#purpose-and-overview)
- - [Methodology](#methodology)
- - [Project Scope](#project-scope)
- - [Understanding the Data](#understanding-the-data)
-    - [Data Cleaning](#data-cleaning)
-    - [Data Analysis](#data-analysis)
- - [Conclusion](#conclusion)
- - [Team Videos](#team-videos)
- - [Credits and Source](#credits)
+## Table of Contents
+  
+  - [Purpose \& Overview](#purpose--overview)
+	  - [Goals \& Objectives](#goals--objectives)
+	  - [Target Audience and Stakeholders](#target-audience-and-stakeholders)
+
+- [Dataset](#dataset)
+
+- [Key Business Questions](#key-business-questions)
+
+- [Methodology](#methodology)
+
+- [Project Workflow](#project-workflow)
+
+- [Technical Stack](#technical-stack)
+
+- [Project Setup](#project-setup)
+  - [Prerequisites](#prerequisites)
+  - [Install dependencies](#install-dependencies)
+  - [Run the Data Processing \& Model Training Pipelines](#run-the-data-processing--model-training-pipelines)
+  - [Launch Streamlit dashboard](#launch-streamlit-dashboard)
+
+- [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
+  - [1. Customer Demographics](#1-customer-demographics)
+  - [2. Financial Profile](#2-financial-profile)
+  - [3. Campaign and Previous Contact Behavior](#3-campaign-and-previous-contact-behavior)
+  - [4. Customer Segmentation Analysis](#4-customer-segmentation-analysis)
+  - [5. Summary of EDA Insights](#5-summary-of-eda-insights)
+  - [6. Recommendations](#6-recommendations)
+
+- [Risks \& Unknowns](#risks--unknowns)
+
+- [Conclusion](#conclusion)
+
+- [Limitations \& Future Work](#limitations--future-work)
+
+- [Team Videos](#team-videos)
 
  <!--- [Additional Guide_Project Setup](#project-structure)-->
 
@@ -51,7 +78,7 @@ These issues lead to:
 
 This project aims to address these problems by identifying **which customers are most likely to subscribe**, allowing marketing teams to move from **high-volume outreach to targeted, data-driven campaigns**.
 
-## Goals & Objectives
+### Goals & Objectives
 
 The main objective of this project is to improve the effectiveness of direct marketing campaigns by leveraging data analysis and machine learning.
 
@@ -66,6 +93,22 @@ Key goals include:
 - Increase campaign conversion rates
 
 - Provide actionable insights for future marketing strategies
+
+### Target Audience and Stakeholders
+
+The findings of this analysis are relevant to several stakeholders involved in marketing strategy, customer analytics, and business decision-making within financial institutions.
+
+* **Marketing Teams** - Use segmentation insights and customer probability rankings to prioritize outreach toward high-potential customers and improve campaign conversion rates.
+
+* **Customer Strategy and CRM Teams** - Leverage customer behavior insights to refine customer segmentation, targeting strategies, and customer relationship management initiatives.
+ 
+* **Business Strategy and Analytics Teams** - Evaluate how customer characteristics and campaign factors influence subscription behavior in order to design more efficient marketing strategies.
+ 
+* **Campaign Operations Teams** - Optimize campaign execution by focusing outreach efforts on customers with higher predicted likelihood of subscription and avoiding low-probability segments.
+ 
+* **Executive Leadership** - Use data-driven insights to guide strategic decisions on marketing investment, customer acquisition strategy, and campaign efficiency.
+
+These insights help support a data-driven marketing approach that improves targeting precision, campaign efficiency, and return on marketing investment.
 
 ## Dataset
 
@@ -219,28 +262,6 @@ A **Streamlit dashboard** was developed to:
 
 This interactive reporting approach allows stakeholders to easily interpret the results and apply them to marketing strategy.
 
-## Project Workflow
-
-The project follows a structured data science workflow from raw data preparation to decision-support reporting.
-
-```text
-Raw Dataset
-   ↓
-Data Cleaning
-   ↓
-Feature Transformation
-(Age & Balance Bucketing)
-   ↓
-Segmentation Analysis
-   ↓
-Logistic Regression Model
-(Customer Probability Ranking)
-   ↓
-Visualization & Insights
-   ↓
-Streamlit Dashboard
-```
-
 ## Technical Stack
 
 The project was developed using Python and a set of libraries commonly used in data science workflows.
@@ -267,6 +288,41 @@ The project was developed using Python and a set of libraries commonly used in d
 - Jupyter Notebooks - exploratory analysis and modeling
 - Python scripts (`.py`) - reusable pipelines for data downloading, data processing, feature preparation, and modeling 
 - GitHub - version control and collaboration
+
+## Project Setup
+
+### Prerequisites
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+### Install dependencies
+
+```bash
+# Create virtual environment and install all dependencies from pyproject.toml
+uv sync
+```
+
+### Run the Data Processing & Model Training Pipelines
+
+This pipeline downloads the dataset, performs data cleaning, preprocessing, and feature engineering, trains the model, and stores all generated artifacts in their respective directories. The outputs are then ready to support reporting and visualization.
+
+```bash
+uv run src/pipelines/run_all.py
+```
+
+### Launch Streamlit dashboard
+
+Run the following command to start the dashboard locally
+
+```bash
+uv run streamlit run app/main.py
+```
+
+Alternatively, you can explore the deployed version [here](https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app)
 
 ## Exploratory Data Analysis (EDA)
 
@@ -428,7 +484,123 @@ This suggests that **seasonality may influence customer responsiveness to market
 
 ![](reports/subscription_rate_by_month.png)
 
+### Call Duration
 
+Call duration shows a strong correlation with subscription success.
+
+Longer calls are more likely to result in successful subscriptions. However, this variable cannot be used in predictive targeting because **call duration is only known after the call occurs**, making it a **data leakage variable**.
+
+Therefore, it is used only for **behavioral interpretation rather than predictive modeling**.
+
+![](reports/subscription_rate_by_call_duration.png)
+
+### Previous Campaign Outcome
+
+Previous campaign outcomes provide one of the strongest predictors of subscription behavior.
+
+Key findings include:
+
+* Customers with **previous campaign success show dramatically higher subscription rates**
+
+* Customers with **previous failures show much lower conversion probabilities**
+
+This suggests that **retargeting previously successful customers may be highly effective.**
+
+![](reports/subscription_rate_by_previous_campaign.png)
+
+### Recency of Contact
+
+The variable **pdays** measures the number of days since the last contact.
+
+Key observation:
+
+* Customers contacted **more recently show higher subscription probabilities**
+
+* Conversion rates decline as the **time since last contact increases**
+
+This highlights the importance of **recency in marketing engagement**.
+
+![](reports/04_pdays_vs_subscription.png)
+
+## 4. Customer Segmentation Analysis
+
+Two-way segmentation analysis evaluates pairs of variables simultaneously, allowing us to identify:
+
+* high-value target segments
+
+* low-probability segments to avoid
+
+### Top Target Segments
+
+The **Top Target Segments** analysis identifies combinations of characteristics with **conversion rates significantly above the overall dataset average (11.7%)**.
+
+Typical high-performing segments include:
+
+* Customers **without housing loans and with high balances**
+
+* Older customers **without major financial obligations**
+ 
+* Customers with **strong financial profiles and favorable past campaign interactions**
+
+These segments represent the **most promising customers for marketing outreach.**
+
+![](reports/top_target_segments.png)
+
+This visualization ranks segments by conversion rate and lift, helping marketers identify the most valuable customer groups.
+
+### Segments to Avoid
+
+The **Segments to Avoid** analysis highlights groups that consistently show very low subscription probabilities.
+
+Typical low-performing segments include:
+
+* Customers **with housing loans and low balances**
+
+* Customers **with multiple financial obligations**
+ 
+* Segments **with weak financial profiles**
+
+Targeting these groups is unlikely to generate meaningful results and may reduce campaign efficiency.
+
+Avoiding these segments allows marketing teams to:
+
+* reduce unnecessary outreach
+
+* improve campaign ROI
+ 
+* allocate resources more effectively
+
+![](reports/segments_to_avoid.png)
+
+### Decision Table
+
+To translate segmentation insights into actionable guidance, a decision table was created summarizing key segments and their marketing implications. This table provides a **clear operational guide for campaign targeting.**
+
+![](reports/decision_table.png)
+
+## 5. Summary of EDA Insights
+
+* Older customers and retired segments show relatively higher subscription rates, though large working-age groups still account for most subscribers due to their population size.
+ 
+* Financial profile is a strong indicator of subscription behavior. Customers with higher account balances are significantly more likely to subscribe, while customers with housing loans, personal loans, or credit default indicators show lower conversion rates.
+ 
+* Previous campaign outcomes strongly influence future behavior. Customers who previously responded successfully to campaigns have much higher subscription probabilities.
+ 
+* Two-way segmentation analysis helps identify meaningful customer groups, revealing segments with consistently high or low conversion rates.
+ 
+* Segmentation highlights high-potential target segments (e.g., financially stronger customers without loan obligations) and low-probability segments that are less suitable for marketing outreach.
+ 
+* Logistic regression enables customer-level probability ranking, allowing campaigns to prioritize customers most likely to subscribe.
+
+## 6. Recommendations
+
+* **Prioritize customers with stronger financial profiles**, particularly those with higher balances and fewer loan obligations.
+ 
+* **Reduce outreach to low-probability segments**, such as customers with housing loans and low balances.
+ 
+* **Retarget customers with previous successful campaign interactions**, as they show higher likelihood of subscribing again.
+ 
+* **Use logistic regression ranking to prioritize outreach**, focusing marketing resources on the customers most likely to convert.
 
 ## Risks & Unknowns
 
@@ -526,42 +698,28 @@ Macroeconomic events that could influence financial decisions are not captured.
 
 The dataset does not include the **time of day customers were contacted**, which may affect response rates.
 
-## Project Setup
 
-### Prerequisites
+## Conclusion
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it:
+This project demonstrates how data analysis and machine learning can support more effective marketing targeting for term deposit campaigns. Using the UCI Bank Marketing dataset, we combined **exploratory analysis, customer segmentation, and predictive modeling** to identify the factors that influence subscription behavior.
 
-```bash
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
+The analysis highlights that customers with **stronger financial profiles, fewer loan obligations, and positive previous campaign outcomes** are more likely to subscribe. Two-way segmentation helps identify **high-potential target segments and low-probability segments**, while logistic regression enables **customer-level probability ranking** to prioritize outreach.
 
-### Install dependencies
+Together, these approaches support a shift from **broad, high-volume outreach toward more targeted and data-driven marketing strategies**, helping improve campaign efficiency and reduce unnecessary contacts. The results are presented through an **interactive Streamlit dashboard**, which allows stakeholders to explore segmentation insights and model outputs in a user-friendly way.
 
-```bash
-# Create virtual environment and install all dependencies from pyproject.toml
-uv sync
-```
+## Limitations & Future Work
 
-### Run the Data Processing & Model Training Pipelines
+While this project provides useful insights for marketing targeting, several opportunities exist to improve and extend the analysis.
 
-This pipeline downloads the dataset, performs data cleaning, preprocessing, and feature engineering, trains the model, and stores all generated artifacts in their respective directories. The outputs are then ready to support reporting and visualization.
+- **Model improvement** - The current implementation uses logistic regression for interpretability and customer ranking. Future work could explore more advanced models such as **Random Forest, Gradient Boosting (XGBoost/LightGBM)**, or **Neural Networks** to capture more complex patterns in customer behavior.
 
-```bash
-uv run src/pipelines/run_all.py
-```
+- **Class imbalance handling** - Because the dataset contains far fewer subscribers than non-subscribers, future work could apply techniques such as **SMOTE**, **undersampling, or precision-recall optimization** to improve the model’s ability to identify potential subscribers.
 
-### Launch Streamlit dashboard
+- **Richer data features** - Additional variables such as **income, geographic information, digital engagement behavior, or customer lifetime value** could improve predictive performance and enable deeper segmentation insights.
 
-Run the following command to start the dashboard locally
+- **Lightweight CI/CD integration** - Future work could include adding **simple CI pipelines** (e.g., GitHub Actions) to **automatically test data pipelines, validate model training, and ensure the Streamlit dashboard** continues to run after code updates.
 
-```bash
-uv run streamlit run app/main.py
-```
-
-Alternatively, you can explore the deployed version [here](https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app)
-
-# Conclusion
+These improvements would help transform the current analysis into a more scalable marketing analytics system capable of supporting continuous campaign optimization.
 
 # Team Videos
  | Name | Links |
@@ -575,7 +733,6 @@ Alternatively, you can explore the deployed version [here](https://dsteam2bankma
 
 ## Credits
 
-* Team: DS Team 2 — University of Toronto, Data Sciences Institute
+* Team: DS Team 2 - University of Toronto, Data Sciences Institute
 * Dataset: UC Irvine Machine Learning Repository
 * Contributors: All team members
----
