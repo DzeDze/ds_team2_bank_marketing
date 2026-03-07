@@ -33,6 +33,8 @@ UCI Machine Learning Repository - Bank Marketing Dataset
 
 - [Technical Stack](#technical-stack)
 
+- [Project Structure](#project-structure)
+
 - [Project Setup](#project-setup)
   - [Prerequisites](#prerequisites)
   - [Install dependencies](#install-dependencies)
@@ -288,6 +290,74 @@ The project was developed using Python and a set of libraries commonly used in d
 - Jupyter Notebooks - exploratory analysis and modeling
 - Python scripts (`.py`) - reusable pipelines for data downloading, data processing, feature preparation, and modeling 
 - GitHub - version control and collaboration
+
+## Project Structure
+
+```text
+DS_TEAM2_BANK_MARKETING/
+│
+├── data/
+│   ├── raw/                     # immutable source datasets
+│   │   ├── bank-additional-full.csv
+│   │   └── bank-full.csv
+│   ├── processed/               # cleaned & feature-engineered outputs
+│   └── demo/                    # small demo datasets for testing
+│
+├── notebooks/                   # exploratory analysis notebooks
+│   ├── 00_data_cleaning.ipynb
+│   ├── 01_eda.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── 03_features_engineering.ipynb
+│   ├── 04_modeling.ipynb
+│   └── 05_evaluation_and_explainability.ipynb
+│
+├── reports/                     # saved figures & visualizations
+│
+├── artifacts/                   # saved model artifacts and outputs
+│
+├── app/                         # Streamlit dashboard application
+│
+├── src/                         # reusable project code
+│   ├── pipelines/               # end-to-end pipeline scripts
+│   │   ├── download_data.py		# download raw dataset
+│   │   ├── process_data.py		# data cleaning and preparation
+│   │   ├── export_segmentation.py
+│   │   ├── train_models.py		# model training
+│   │   └── run_all.py				# run full pipeline
+│   │
+│   └── utils/                   # helper utilities
+│       ├── data_manager.py
+│       ├── preprocessing.py
+│       ├── transforms.py
+│       ├── logger.py
+│       └── config.py
+│
+├── .github/                     # GitHub configuration
+├── .gitignore
+├── pyproject.toml               # project dependencies & metadata
+├── uv.lock                      # dependency lock file
+├── project_structure.png        # project architecture diagram
+└── README.md                    # project documentation
+```
+### Structure Design Principles
+
+The project structure follows common **data science and machine learning** repository practices:
+
+* **Data separation**
+
+	Raw data is never modified and processed outputs are stored separately.
+
+* **Notebook vs production code separation**
+
+	Notebooks are used only for exploration, while reusable logic is implemented in `src/`.
+
+* **Pipeline-based workflow**
+
+	The `pipelines` module enables running the entire workflow, from data download to model training through automated scripts.
+
+* **Reproducible environment**
+
+	Dependencies are managed with `uv` via `pyproject.toml` and `uv.lock`.
 
 ## Project Setup
 
