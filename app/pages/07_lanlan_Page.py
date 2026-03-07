@@ -32,6 +32,6 @@ print("\n")
 # -----------------------------
 # Streamlit UI
 # -----------------------------
-st.title("Prediction Page: lanlan")
+
 
 
