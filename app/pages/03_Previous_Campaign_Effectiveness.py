@@ -168,3 +168,144 @@ fig3.update_traces(
 )
 
 st.plotly_chart(fig3, use_container_width=True)
+
+
+# =========================================================
+# ANALYSIS 7: Monthly Trends in Conversion Rate
+# =========================================================
+
+st.header("Monthly Trends in Conversion Rate")
+
+eda_df = df.copy()
+eda_df['only_yes'] = (eda_df['y'] == 'yes').astype(int)
+month_success = eda_df.groupby('month')['only_yes'].mean().mul(100).reset_index()
+overall_avg = eda_df['only_yes'].mean() * 100
+
+month_success['color'] = month_success['only_yes'].apply(
+    lambda x: '#2F6F73' if x >= overall_avg else '#8FB3C1'
+)
+
+fig = px.bar(
+    month_success,
+    x='month',
+    y='only_yes',
+    title='Conversion Rate by Month',
+    labels={'only_yes': 'Conversion Rate (%)', 'month': 'Month'},
+    color='color',
+    color_discrete_map='identity'
+)
+
+fig.add_hline(
+    y=overall_avg,
+    line_dash='dash',
+    line_color='white',
+    line_width=1,
+    annotation_text=f'Average: {overall_avg:.2f}%',
+    annotation_position='top right'
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================================================
+# ANALYSIS 8: Call Duration as a Predictor of Conversion
+# =========================================================
+
+st.header("Call Duration as a Predictor of Conversion")
+
+bins = [0, 1, 2, 3, 4, 10, eda_df['duration'].max()+1]
+labels = ['<1','1-2','2-3','3-4','5-10','>10']
+eda_df['duration_bin'] = pd.cut(eda_df['duration']/60, bins=bins, labels=labels, right=False)
+
+duration_success = eda_df.groupby('duration_bin')['only_yes'].mean().mul(100).reset_index()
+duration_success['color'] = duration_success['only_yes'].apply(
+    lambda x: '#2F6F73' if x >= overall_avg else '#8FB3C1'
+)
+
+fig = px.bar(
+    duration_success,
+    x='duration_bin',
+    y='only_yes',
+    title='Conversion Rate by Call Duration',
+    labels={'only_yes': 'Conversion Rate (%)', 'duration_bin': 'Call Duration (in minutes)'},
+    color='color',
+    color_discrete_map='identity',
+)
+
+fig.add_hline(
+    y=overall_avg,
+    line_dash='dash',
+    line_color='white',
+    line_width=1,
+    annotation_text=f'Average: {overall_avg:.2f}%',
+    annotation_position='top right',
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================================================
+# ANALYSIS 9: Impact of Contact Frequency on Conversion Probability
+# =========================================================
+
+st.header("Impact of Contact Frequency on Conversion Probability")
+
+contact_success = eda_df.groupby('campaign')['only_yes'].mean().mul(100).reset_index()
+
+fig = px.line(
+    contact_success,
+    x='campaign',
+    y='only_yes',
+    title='Conversion Rate by Contact Count',
+    labels={'only_yes': 'Conversion Rate (%)', 'campaign': 'Number of Contacts in Campaign'},
+)
+fig.update_traces(line_color='#1F4E52', line=dict(width=5))
+
+# Add colored markers for above/below average
+for color, label in [("#36B464", 'Above Average'), ("#DD4D4D", 'Below Average')]:
+    mask = contact_success['only_yes'] >= overall_avg if color == "#36B464" else contact_success['only_yes'] < overall_avg
+    subset = contact_success[mask]
+    fig.add_scatter(
+        x=subset['campaign'],
+        y=subset['only_yes'],
+        mode='markers',
+        marker=dict(color=color, size=10),
+        name=label
+    )
+
+fig.add_hline(
+    y=overall_avg,
+    line_dash='dash',
+    line_color='white',
+    line_width=1,
+    annotation_text=f'Average: {overall_avg:.2f}%',
+    annotation_position='top right',
+)
+
+st.plotly_chart(fig, use_container_width=True)
+
+# =========================================================
+# ANALYSIS 10: Conversion Performance by Contact Channel
+# =========================================================
+
+st.header("Conversion Performance by Contact Channel")
+
+contact_type_success = eda_df.groupby('contact')['only_yes'].mean().mul(100).reset_index()
+
+fig = px.bar(
+    contact_type_success,
+    x='contact',
+    y='only_yes',
+    title='Conversion Rate by Contact Type',
+    labels={'only_yes': 'Conversion Rate (%)', 'contact': 'Contact Type'},
+    color_discrete_sequence=['#2F6F73'],
+)
+
+fig.add_hline(
+    y=overall_avg,
+    line_dash='dash',
+    line_color='white',
+    line_width=1,
+    annotation_text=f'Average: {overall_avg:.2f}%',
+    annotation_position='top right',
+)
+
+st.plotly_chart(fig, use_container_width=True)
