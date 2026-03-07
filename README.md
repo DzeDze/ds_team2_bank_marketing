@@ -1,6 +1,6 @@
 # 📊 Bank Marketing Campaign Analysis
 
-# Customer Segmentation Dashboard
+
 
 <p align="center">
 <a href="https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app">
