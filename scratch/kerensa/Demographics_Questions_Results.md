@@ -1,3 +1,5 @@
+[comment]: #(this version is results for bank_addition_full.csv - not applicable for this project anymore)
+
 ## 1. Which age groups are most likely to subscribe to a term deposit?
 - Likelihood within each age group <-- finding groups more liekly to subscribe![alt text](image.png)
 - Volume:![alt text](image-1.png)
