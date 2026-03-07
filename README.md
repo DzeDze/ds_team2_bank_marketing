@@ -1,5 +1,20 @@
 # 📊 Bank Marketing Campaign Analysis
 
+# Customer Segmentation Dashboard
+
+<p align="center">
+<a href="https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app">
+<img src="https://img.shields.io/badge/Live%20Demo-Open%20Streamlit%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+</a>
+
+<br>
+<img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python"/>
+<img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit"/>
+<img src="https://img.shields.io/badge/Pandas-Data%20Processing-150458?style=for-the-badge&logo=pandas"/>
+<img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn"/>
+<img src="https://img.shields.io/badge/Plotly-Charts-3F4F75?style=for-the-badge&logo=plotly"/>
+</p>
+
 ## Data Science Institute - Cohort 8 - DS Team 2 - Final Project
 This project analyzes the [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) dataset to identify the factors that influence whether a customer subscribes to a term deposit and to help optimize future marketing campaigns through data-driven targeting strategies.
 
