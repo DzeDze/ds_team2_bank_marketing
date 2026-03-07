@@ -31,7 +31,7 @@ df["Confusion Matrix"] = df["Confusion Matrix"].apply(
 # Streamlit UI
 # -----------------------------
 render_sidebar()
-st.title("Prediction Page: lanlan")
+st.title("Modelinf Methods")
 st.subheader("Performance Metrics Summary")
 st.dataframe(df, use_container_width=True)
 
