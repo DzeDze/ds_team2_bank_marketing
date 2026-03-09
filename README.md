@@ -1,6 +1,34 @@
 # 📊 Bank Marketing Campaign Analysis
 
+
 ## Data Science Institute - Cohort 8 - DS Team 2 - Final Project
+<p align="left">
+<a href="https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app">
+<img src="https://img.shields.io/badge/Live%20Demo-Open%20Streamlit%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
+</a>
+
+<br>
+<a href="https://www.python.org/">
+<img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python"/>
+</a>
+
+<a href="https://github.com/streamlit/streamlit">
+<img src="https://img.shields.io/badge/Streamlit-App-FF4B4B?style=for-the-badge&logo=streamlit"/>
+</a>
+
+<a href="https://github.com/pandas-dev/pandas">
+<img src="https://img.shields.io/badge/Pandas-Data%20Processing-150458?style=for-the-badge&logo=pandas"/>
+</a>
+
+<a href="https://github.com/scikit-learn/scikit-learn">
+<img src="https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn"/>
+</a>
+
+<a href="https://github.com/plotly/plotly.py">
+<img src="https://img.shields.io/badge/Plotly-Charts-3F4F75?style=for-the-badge&logo=plotly"/>
+</a>
+</p>
+
 This project analyzes the [UCI Bank Marketing](https://archive.ics.uci.edu/dataset/222/bank+marketing) dataset to identify the factors that influence whether a customer subscribes to a term deposit and to help optimize future marketing campaigns through data-driven targeting strategies.
 
 The analysis combines **exploratory data analysis, customer segmentation, and predictive modeling** to help marketing teams prioritize high-probability customers, reduce unnecessary outreach, and improve campaign efficiency.
@@ -32,6 +60,8 @@ UCI Machine Learning Repository - Bank Marketing Dataset
 - [Project Workflow](#project-workflow)
 
 - [Technical Stack](#technical-stack)
+
+- [Project Structure](#project-structure)
 
 - [Project Setup](#project-setup)
   - [Prerequisites](#prerequisites)
@@ -288,6 +318,74 @@ The project was developed using Python and a set of libraries commonly used in d
 - Jupyter Notebooks - exploratory analysis and modeling
 - Python scripts (`.py`) - reusable pipelines for data downloading, data processing, feature preparation, and modeling 
 - GitHub - version control and collaboration
+
+## Project Structure
+
+```text
+DS_TEAM2_BANK_MARKETING/
+│
+├── data/
+│   ├── raw/                     # immutable source datasets
+│   │   ├── bank-additional-full.csv
+│   │   └── bank-full.csv
+│   ├── processed/               # cleaned & feature-engineered outputs
+│   └── demo/                    # small demo datasets for testing
+│
+├── notebooks/                   # exploratory analysis notebooks
+│   ├── 00_data_cleaning.ipynb
+│   ├── 01_eda.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── 03_features_engineering.ipynb
+│   ├── 04_modeling.ipynb
+│   └── 05_evaluation_and_explainability.ipynb
+│
+├── reports/                     # saved figures & visualizations
+│
+├── artifacts/                   # saved model artifacts and outputs
+│
+├── app/                         # Streamlit dashboard application
+│
+├── src/                         # reusable project code
+│   ├── pipelines/               # end-to-end pipeline scripts
+│   │   ├── download_data.py		# download raw dataset
+│   │   ├── process_data.py		# data cleaning and preparation
+│   │   ├── export_segmentation.py
+│   │   ├── train_models.py		# model training
+│   │   └── run_all.py				# run full pipeline
+│   │
+│   └── utils/                   # helper utilities
+│       ├── data_manager.py
+│       ├── preprocessing.py
+│       ├── transforms.py
+│       ├── logger.py
+│       └── config.py
+│
+├── .github/                     # GitHub configuration
+├── .gitignore
+├── pyproject.toml               # project dependencies & metadata
+├── uv.lock                      # dependency lock file
+├── project_structure.png        # project architecture diagram
+└── README.md                    # project documentation
+```
+### Structure Design Principles
+
+The project structure follows common **data science and machine learning** repository practices:
+
+* **Data separation**
+
+	Raw data is never modified and processed outputs are stored separately.
+
+* **Notebook vs production code separation**
+
+	Notebooks are used only for exploration, while reusable logic is implemented in `src/`.
+
+* **Pipeline-based workflow**
+
+	The `pipelines` module enables running the entire workflow, from data download to model training through automated scripts.
+
+* **Reproducible environment**
+
+	Dependencies are managed with `uv` via `pyproject.toml` and `uv.lock`.
 
 ## Project Setup
 
@@ -724,10 +822,10 @@ These improvements would help transform the current analysis into a more scalabl
 # Team Videos
  | Name | Links |
  | --- | --- |
- | Vinh-phuc Nguyen | [Video Link]() |
- | Cookiejars8 | [Video Link]() |
- | Kateryna Makieieva | [Video Link]()|
- | kerensa-wong | [Video Link]() | 
+ | Vinh-phuc (Vince) Nguyen | [Video Link](https://drive.google.com/file/d/1vOWN-QcuqwxCfk-j6LtCNiNw64hCOVs3/view) |
+ | Cookiejars8 | [Video Link](https://drive.google.com/drive/folders/1ZMKaL5Wt-paKmv6_XxYwoKOefxINcQXF) |
+ | Kateryna Makieieva | [Video Link](https://drive.google.com/file/d/1DHBxbKdbTPz_CL6w-p0iqL5dLxmBBqwH/view?usp=sharing)|
+ | kerensa-wong | [Video Link](https://drive.google.com/file/d/1vvHW3TirXDJPbQQtiiN9TbBgZ8cSanOX/view?usp=drive_link)| 
  | Lanlan Li | [Video Link]() |
 
 
