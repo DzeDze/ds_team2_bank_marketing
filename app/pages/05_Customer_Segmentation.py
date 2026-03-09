@@ -9,6 +9,7 @@ Dashboard page:
 """
 
 import streamlit as st
+from sidebar import render_sidebar
 
 try:
     from app.components.segmentation_chart import (
@@ -42,8 +43,8 @@ def _safe_plotly(fig_factory, *args, **kwargs) -> None:
 
 def render_dashboard() -> None:
     """Render the main dashboard page."""
-    st.set_page_config(page_title="Seg. Dashboard", layout="wide")
-    st.title("Segmentation Dashboard")
+    st.set_page_config(page_title="Customer Segmentation", layout="wide")
+    st.title("Customer Segmentation")
 
     # Sidebar controls (page-level; components remain pure)
     st.sidebar.header("Controls")
@@ -97,11 +98,6 @@ def render_dashboard() -> None:
 
     # Placeholder: future teammate modules
     st.markdown("---")
-    st.subheader("Other Analytics Modules")
-    st.caption(
-        "Teammates can add modules under `app/components/` "
-        "import and place their charts here when ready."
-    )
-
+render_sidebar()
 # Streamlit multipage runs this file directly
 render_dashboard()
