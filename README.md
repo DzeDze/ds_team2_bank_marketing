@@ -2,7 +2,7 @@
 
 
 ## Data Science Institute - Cohort 8 - DS Team 2 - Final Project
-<p align="center">
+<p align="left">
 <a href="https://dsteam2bankmarketing-omztqumgpewsyphbyksupa.streamlit.app">
 <img src="https://img.shields.io/badge/Live%20Demo-Open%20Streamlit%20App-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white"/>
 </a>
@@ -822,7 +822,7 @@ These improvements would help transform the current analysis into a more scalabl
 # Team Videos
  | Name | Links |
  | --- | --- |
- | Vinh-phuc Nguyen | [Video Link]() |
+ | Vinh-phuc (Vince) Nguyen | [Video Link](https://drive.google.com/file/d/1vOWN-QcuqwxCfk-j6LtCNiNw64hCOVs3/view) |
  | Cookiejars8 | [Video Link]() |
  | Kateryna Makieieva | [Video Link](https://drive.google.com/file/d/1DHBxbKdbTPz_CL6w-p0iqL5dLxmBBqwH/view?usp=sharing)|
  | kerensa-wong | [Video Link](https://drive.google.com/file/d/1vvHW3TirXDJPbQQtiiN9TbBgZ8cSanOX/view?usp=drive_link)| 
