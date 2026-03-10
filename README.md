@@ -826,7 +826,7 @@ These improvements would help transform the current analysis into a more scalabl
  | Cookiejars8 | [Video Link]() |
  | Kateryna Makieieva | [Video Link](https://drive.google.com/file/d/1DHBxbKdbTPz_CL6w-p0iqL5dLxmBBqwH/view?usp=sharing)|
  | kerensa-wong | [Video Link](https://drive.google.com/file/d/1vvHW3TirXDJPbQQtiiN9TbBgZ8cSanOX/view?usp=drive_link)| 
- | Lanlan Li | [Video Link]() |
+ | Lanlan Li | [Video Link](https://drive.google.com/file/d/1jXimNCQlhScW2aPokX7pAl6hKu8LPDEE/view?usp=sharing) |
 
 
 ## Credits
