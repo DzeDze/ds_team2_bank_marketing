@@ -823,7 +823,7 @@ These improvements would help transform the current analysis into a more scalabl
  | Name | Links |
  | --- | --- |
  | Vinh-phuc (Vince) Nguyen | [Video Link](https://drive.google.com/file/d/1vOWN-QcuqwxCfk-j6LtCNiNw64hCOVs3/view) |
- | Cookiejars8 | [Video Link]() |
+ | Cookiejars8 | [Video Link](https://drive.google.com/drive/folders/1ZMKaL5Wt-paKmv6_XxYwoKOefxINcQXF) |
  | Kateryna Makieieva | [Video Link](https://drive.google.com/file/d/1DHBxbKdbTPz_CL6w-p0iqL5dLxmBBqwH/view?usp=sharing)|
  | kerensa-wong | [Video Link](https://drive.google.com/file/d/1vvHW3TirXDJPbQQtiiN9TbBgZ8cSanOX/view?usp=drive_link)| 
  | Lanlan Li | [Video Link]() |
